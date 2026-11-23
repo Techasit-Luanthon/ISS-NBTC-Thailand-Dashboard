@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ISS-NBTC-Thailand-Dashboard">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ISS-NBTC-Thailand-Dashboard.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
