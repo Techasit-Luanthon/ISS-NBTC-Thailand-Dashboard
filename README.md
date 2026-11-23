@@ -1,46 +1,89 @@
-# NBTC × ISS Thailand — Demo Login
-A local Flask learning dashboard with a demo access-code login and public ISS position data.
+# ISS + NBTC Public Information Dashboard
 
-## Privacy and scope
-- This is not an official NBTC login or integration.
-- It does not connect to NBTC internal systems or accounts.
-- The personal identifier in the request is deliberately NOT embedded in this project. Do not use a Thai national ID, passport number, or personal password as a login code. Choose a separate random demo code.
-- Never upload credentials or `.env` files to GitHub. `.env` is ignored.
+A Python + Streamlit educational dashboard that:
+- Displays the publicly available ISS latitude, longitude, altitude, and orbital speed.
+- Shows a sample NBTC dataset from CSV.
+- Accepts and validates a CSV dataset intended for public use.
 
-## Run on Windows / VS Code PowerShell
+**Important:** This is not an official NASA or NBTC application. The included NBTC CSV contains illustrative sample data, not official statistics. It does not connect to NBTC internal systems.
+
+## Requirements
+- Windows 10/11 (64-bit recommended)
+- Python 3.10 or newer
+- Visual Studio Community 2026 with the Python development workload
+- Internet access for the ISS API
+
+## Open in Visual Studio Community 2026
+1. Extract the ZIP file.
+2. Open Visual Studio Community 2026.
+3. Select **Open a local folder** and choose the extracted `ISS-NBTC-Dashboard` folder.
+4. Install the **Python development** workload through Visual Studio Installer if Python tools are unavailable.
+5. Open a terminal in the project folder (View > Terminal, if available).
+
+## Create environment and install packages
+
+In PowerShell:
+
 ```powershell
-python -m venv .venv
-.venv\\Scripts\\Activate.ps1
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
 pip install -r requirements.txt
-$env:APP_LOGIN_CODE = "your-own-random-demo-code"
-$env:FLASK_SECRET_KEY = "your-own-long-random-secret"
-python app.py
 ```
-Open http://127.0.0.1:5000 and enter the demo code you set above.
 
-If activation is blocked:
+If PowerShell blocks environment activation, use Command Prompt:
+
+```bat
+.venv\Scripts\activate.bat
+```
+
+## Run
+
 ```powershell
-.venv\\Scripts\\python.exe -m pip install -r requirements.txt
-$env:APP_LOGIN_CODE = "your-own-random-demo-code"
-$env:FLASK_SECRET_KEY = "your-own-long-random-secret"
-.venv\\Scripts\\python.exe app.py
+streamlit run app.py
 ```
 
-## GitHub upload
-1. Create https://github.com/new with repository name `NBTC-ISS-Thailand-Demo`.
-2. Extract the ZIP and upload its contents using Add file → Upload files.
-3. Commit as `Add NBTC ISS educational demo login`.
-4. Check that no secrets or personal identifiers were uploaded.
+Open the local address shown in the terminal, usually `http://localhost:8501`.
 
-Git alternative:
-```bash
+## Project structure
+
+```text
+ISS-NBTC-Dashboard/
+├── app.py
+├── requirements.txt
+├── README.md
+├── .gitignore
+├── modules/
+│   ├── __init__.py
+│   ├── iss_monitor.py
+│   └── nbtc_data.py
+├── data/
+│   └── nbtc_sample.csv
+└── assets/
+```
+
+## Use an NBTC public dataset
+Replace `data/nbtc_sample.csv` with a dataset from an official public NBTC publication. Keep these columns:
+
+`date,topic,value,unit,source_url`
+
+Check the dataset's publication date, licence, definitions, and methodology. Do not describe sample, estimated, or unverified data as official.
+
+## Upload to GitHub
+
+Create an empty repository on GitHub. In the project folder, run:
+
+```powershell
 git init
 git add .
-git commit -m "Add NBTC ISS educational demo login"
+git commit -m "Initial ISS NBTC public dashboard"
 git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/NBTC-ISS-Thailand-Demo.git
+git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
 git push -u origin main
 ```
 
-ISS data source: https://api.wheretheiss.at/v1/satellites/25544
-This is a development prototype, not production authentication. Do not expose Flask's development server publicly.
+Replace the remote URL with your own repository URL.
+
+## Data sources
+- ISS position API: https://api.wheretheiss.at/v1/satellites/25544
+- NBTC official website: https://www.nbtc.go.th/
